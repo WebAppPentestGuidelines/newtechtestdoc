@@ -51,7 +51,7 @@ Burp Intruderを開始するにはペイロードポジションを設定する�
 `Payload Type`を`Null payloads`に設定します。  
 Generateの空白欄に送信したいリクエスト数を入力します。  
 
-![toctou_image2](./toctou_image2.png)
+![toctou_image2](./toctou_image2.png?width=50pc)
 
 デフォルトでは同時に10リクエストを送信します。  
 より多くのリクエストを送信したい場合は、`Resource Pool`設定から新しいリソースプール設定を作成し、`Maximum concurrent requests`を設定してください。  
