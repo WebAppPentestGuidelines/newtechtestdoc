@@ -1,0 +1,26 @@
+# デフォルトエラーによるユーザーの存在判定
+## 概要
+
+攻撃者にとってアプリケーションが返すエラーレスポンスは、攻撃を実施する上で大きなヒントを与えることがあります。代表的な例として、Internal Server Error時にサーバー上のプログラムの断片や、SQL文などが見えてしまうなどがあるでしょう。
+
+認証においても同様で、認証情報がそのサービスで使われているのかを示す詳細なエラーを返すことにより、攻撃者に標的となるユーザーの存在を知らせてしまう可能性があります。
+
+そのような観点からIDaaSでも攻撃者を利するエラーメッセージについては削除や表記の統一を図ることが必要です。
+
+## 原因と影響
+
+IDaaSのエラーメッセージは詳細なメッセージを返してしまっている
+
+- デフォルトエラーが詳しく返してしまうのが原因
+- ユーザーの存在が暴露される
+
+## 対策
+- 統一されたカスタムメッセージに変更
+- 対策が不可能なサービスも存在する(Firebase AuthのID/Pass認証)
+
+## 学習方法/参考文献
+
+- [Amazon Web Service - Amazon Cognito - エラーレスポンスの管理](https://docs.aws.amazon.com/ja_jp/cognito/latest/developerguide/cognito-user-pool-managing-errors.html)
+- [Auth0](https://auth0.com/docs/customize/universal-login-pages/custom-error-pages)
+- [OWASP チートシート - 認証とエラー メッセージ](https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html#authentication-and-error-messages)
+- [Amazon Web Service - Amazon Cognito - 認証チャレンジの作成の Lambda トリガー](https://docs.aws.amazon.com/ja_jp/cognito/latest/developerguide/user-pool-lambda-create-auth-challenge.html)
