@@ -4,7 +4,7 @@ weight: 999
 
 ---
 
-# レースコンディション/TOCTOU
+# TOCTOU/レースコンディション
 ## 概要
 システム開発のセキュリティにおいてレースコンディションとTOCTOUは、しばしば混同して使われることがありますが、それぞれの違いについて用語の整理から確認していきましょう。  
 
@@ -63,9 +63,10 @@ Burp Suiteの拡張機能として公開されているTrubo Intruderを使用�
 Turbo Intruderは、大量のHTTPリクエストを送信したり、Pythonを使用して柔軟にリクエスト前後の処理を操作することができる拡張機能です。  
 また、Turbo Intruderは、標準のBurp Intruderとは異なりCommunity Editionでも使用することが可能です。  
 
-{{% notice note %}}
-注意: Turbo Intruderは、Port Swigger社のセキュリティリサーチャーであるJames Kettle氏によって開発されていますが、十分なテストが行われていないためBurpの標準機能よりも信頼性がなく、システムパフォーマンスに影響を及ぼす可能性があるため、拡張機能を使用される際には自己責任でお願い致します。  
-{{% /notice %}}
+{{< hint info >}}
+**注意**  
+Turbo Intruderは、Port Swigger社のセキュリティリサーチャーであるJames Kettle氏によって開発されていますが、十分なテストが行われていないためBurpの標準機能よりも信頼性がなく、システムパフォーマンスに影響を及ぼす可能性があるため、拡張機能を使用される際には自己責任でお願い致します。  
+{{< /hint >}}
 
 送信したいリクエストを選択し、コンテキストメニューから`Extensions`->`Turbo Intruder`->`Send to turbo intruder`をクリックして、Turbo Intruderへリクエストを送ります。  
 
