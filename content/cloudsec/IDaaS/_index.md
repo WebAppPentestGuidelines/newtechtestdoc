@@ -38,5 +38,4 @@ IDaaSを用いる際に発生しうる脅威 / 脆弱性については大きく
 - [意図しないサインアップ経路の存在](./presence_of_unintended_signup_paths.md)
 - [権限に関するカスタム属性の変更](./modify_custom_attributes_for_permissions.md)
 - [デフォルトエラーによるユーザーの存在判定](./default_error.md)
-- [過剰な権限の付与](./granting_excessive_privileges.md)
 - [EDoS(経済的/資金的なサービス停止攻撃)](./edos.md)
