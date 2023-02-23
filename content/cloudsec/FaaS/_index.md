@@ -32,6 +32,5 @@ S3 Bucketに画像やファイルをアップロードしたイベントをト�
 ## 脆弱性 / 脅威 / 悪用
 
 本稿では、FaaSの利用や設定ミスによって発生するセキュリティ上の脅威や悪用について、下記のページにて触れていきます。また、Injectionやエラー情報の開示といった「アプリケーションの実装」に起因するものは個別には取り扱いませんのでご了承ください。
-- [FaaSに付与されたIAMへの攻撃](./iam_role.md)
-- [FaaSの設定ミスに起因するDoS](./misconfiguration_dos.md)
+
 - [FaaS上で利用する認証情報の不適切な管理](./storing_credentials_in_environment_variables.md)
