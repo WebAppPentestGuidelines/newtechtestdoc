@@ -1,3 +1,7 @@
+---
+title: Prototype Pollution
+weight: 999
+---
 # Prototype Pollution
 
 ## 概要
@@ -25,7 +29,7 @@ Prototype Pollution の影響は様々で、発生箇所やアプリケーショ
 以下の`merge(tgt, src)`は、引数の`tgt`オブジェクトに`src`のプロパティを再帰的にマージします。
 この実装では与えられたオブジェクトの`key`の値をチェックしておらず、任意の`key`に対して任意の値を代入できます。(10 行目)
 
-```javascript=
+```javascript
 function isObject(obj) {
     return obj !== null && typeof obj === 'object';
 }
@@ -57,7 +61,7 @@ console.log(obj.polluted); // => 1
 
 この実装でも引数`key`の値をチェックしておらず、任意の`key`に対して任意の値を代入できます。(13 行目)
 
-```javascript=
+```javascript
 function isObject(obj) {
     return obj !== null && typeof obj === 'object';
 }
