@@ -153,3 +153,4 @@ FaaSで動作するアプリケーションの実装時も、通常のアプリ�
 - [Cloudflere Workersの環境変数](https://developers.cloudflare.com/workers/platform/environment-variables/)
 - [Cloudflere Workersのシークレットの取り扱い](https://developers.cloudflare.com/workers/platform/environment-variables/#add-secrets-to-your-project)
 - [OWASP Serverless Top 10](https://owasp.org/www-project-serverless-top-10/)
+- [Compromised Cloud Compute Credentials: Case Studies From the Wild](https://unit42.paloaltonetworks.com/compromised-cloud-compute-credentials/)
