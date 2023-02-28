@@ -66,8 +66,9 @@ array("user" => array("$ne" => "admin"), "pass" => array("$ne" => "pass"));
 まず、ユーザネームが`guest`,パスワードは`password`というアカウントがあります。  
 ここで、`{"username":"guest","password":"password"}`を送信すると、ログインに成功します。  
 ![nosqli_image4](img/nosqli_image4.png)  
-
-次に、このパスワードの長さを推測するために`$regex`演算子を用いた、`{"username":"guest","password":{"$regex":"^.{7}$"}}`と、`{"username":"guest","password":{"$regex":"^.{8}$"}}`をそれぞれ送信してみます。  
+<!-- textlint-disable -->
+次に、このパスワードの長さを推測するために`$regex`演算子を用いた、`{"username":"guest","password":{"$regex":"^.{7}$"}}`と、`{"username":"guest","password":{"$regex":"^.{8}$"}}`をそれぞれ送信してみます。
+<!-- textlint-disable -->
 7文字推測  
 ![nosqli_image5](img/nosqli_image5.png)  
 8文字推測  
@@ -135,9 +136,11 @@ javascriptEnabled:false
     - [DynamoDB Injection. I have been developing a bunch of… | by Abhay Bhargav | AppSecEngineer | Medium](https://medium.com/appsecengineer/dynamodb-injection-1db99c2454ac)
 - couchdb
     - [NOSQL INJECTION](https://owasp.org/www-pdf-archive/GOD16-NOSQL.pdf)
+<!-- textlint-disable -->
 - memcached
     - [The New Page of Injections Book: Memcached Injections](https://www.blackhat.com/docs/us-14/materials/us-14-Novikov-The-New-Page-Of-Injections-Book-Memcached-Injections-WP.pdf)
     - [A small injection for memcached – HackMag](https://hackmag.com/security/a-small-injection-for-memcached/)
+<!-- textlint-disable -->
 - Cassandra
     - [br3akp0int: CASSANDRA AND CQL INJECTIONS](https://br3akp0int.blogspot.com/2019/11/cassandra-and-cql-injections.html)
 
