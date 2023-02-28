@@ -6,12 +6,13 @@ weight: 999
 
 ## 概要
 
-Prototype Pollution は、JavaScript において主に"継承"を実現するために用いられる、[`__proto__`](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Object/proto)プロパティを通じて特定のオブジェクトの内容を不正に変更する攻撃手法またはそれに対する脆弱性です。
+JavaScriptでは主に"継承"を実現するための[`__proto__`](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Object/proto)プロパティが存在します。
+Prototype Pollution は、この`__proto__`プロパティを通じて特定のオブジェクトの内容を不正に変更する攻撃手法またはそれに対する脆弱性です。
 
 ## 影響
 
-Prototype Pollution の影響は様々で、発生箇所やアプリケーションのロジックに依存します。
-最悪の場合ではサーバサイドでの任意コード実行に繋がることがあり、その他の場合では XSS や SQL インジェクションなどの脆弱性にも繋がる可能性があります。
+Prototype Pollution の影響はさまざまで、発生箇所やアプリケーションのロジックに依存します。
+最悪の場合ではサーバサイドでの任意コード実行につながることがあり、そのほかの場合では XSS や SQL インジェクションなどの脆弱性にもつながる可能性があります。
 
 ## 原因
 
@@ -21,7 +22,7 @@ Prototype Pollution の影響は様々で、発生箇所やアプリケーショ
 
 実際にオブジェクトの`__proto__`プロパティが操作可能なケースとして、下記 2 つの例を紹介します。
 
-1. オブジェクトに対して merge や clone の操作を行うケース
+1. オブジェクトに対して merge や clone の操作をするケース
 2. `setValue(obj, key, value)`のようにオブジェクトのプロパティを設定するケース
 
 ### 1. オブジェクトに対して merge や clone の操作を行うケース
@@ -53,7 +54,7 @@ const obj = {};
 console.log(obj.polluted); // => 1
 ```
 
-上記の PoC では、引数`src`に`{"__proto__": {"polluted": 1}}`というオブジェクトを渡しており、10 行目で`tgt[__proto__] = {"polluted":1}`のような代入が実行されることで攻撃が成功しています。
+上記の PoC では、引数`src`に`{"__proto__": {"polluted": 1}}`というオブジェクトが渡しています。その値を10 行目で`tgt[__proto__] = {"polluted":1}`のような代入が実行されることで攻撃が成功しています。
 
 ### 2. `setValue(obj, key, value)`のようにオブジェクトのプロパティを設定するケース
 
@@ -84,7 +85,7 @@ const a = "";
 console.log(a.polluted); // => 1
 ```
 
-上記の PoC では、引数`key`に`__proto__.polluted`という値を渡しており、再帰的に処理されることで結果的に 13 行目で`obj[__proto__][polluted] = 1`のような代入が実行されることで攻撃が成功しています。
+上記の PoC では、引数`key`に`__proto__.polluted`という値が渡しています。その値が再帰的に処理されることで結果的に 13 行目で`obj[__proto__][polluted] = 1`のような代入が実行されることで攻撃が成功しています。
 
 ## 事例紹介
 
@@ -122,7 +123,7 @@ console.log({}.test); // => undefined
 ```
 
 なお、注意点として、（上記の PoC を実際に動かしてみてもわかる通り、）`Object.freeze()`によって freeze されたオブジェクトの変更は、特にエラーや例外が起こることなく失敗します。
-そのため、本対策を適用し意図しない副作用が発生した場合でも、その副作用を発見するのが困難な場合があります。
+そのため、本対策を適用し意図しない副作用が発生した場合でも、その発見が困難な場合もあります。
 したがって、この対策は（依存ライブラリを含めた）アプリケーションの現状の実装を考慮して、慎重に適用することを推奨します。
 
 ### `Object`の代わりに`Map`を使う方法
@@ -132,7 +133,7 @@ ES6 以降では、`Object`の代わりに`Map`が利用できます。
 
 ### オブジェクトの作成を`Object.create(null)`で行う方法
 
-`Object.create()`に`null`を渡す方法で、prototype を引き継がないオブジェクトを作成することで、`__proto__`経由で prototype が汚染されることを防ぐことができます。
+`Object.create()`に`null`を渡し、prototype を引き継がないオブジェクトを作成することで、`__proto__`経由で prototype が汚染されることを防ぐことができます。
 下記のようなコードで、実際に`__proto__`経由で prototype にアクセスできないことを実際に確認できます。
 
 ```javascript
@@ -142,14 +143,14 @@ console.log(obj.__proto__ === Object.prototype); // => false
 console.log(obj.__proto__); // => undefined
 ```
 
-もし`{"a": 1, "b": 2}`のような元々いくつかのプロパティを持つオブジェクトを作成する場合は、下記のように[`Object.assign()`](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Object/assign)を併せて利用する必要があります。
+もし`{"a": 1, "b": 2}`のようなもともといくつかのプロパティを持つオブジェクトを作成する場合は、下記のように[`Object.assign()`](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Object/assign)を併せて利用する必要があります。
 
 ```javascript
 var obj = Object.assign(Object.create(null), { a: 1, b: 2 });
 ```
 
-なお、このように作成されたオブジェクトの prototype は`Object.prototype`の参照ではないため、`hasOwnProperty()`のような`Object.prototype`のメソッドはプロトタイプチェーン経由で呼び出せません。
-もし、そのようなメソッドを呼び出したい場合は`Object.prototype.hasOwnProperty`のように明示的に行う必要があります。
+なお、このように作成されたオブジェクトの prototype は`Object.prototype`の参照ではありません。そのため、`hasOwnProperty()`のような`Object.prototype`のメソッドはプロトタイプチェーン経由で呼び出せません。
+もし、そのようなメソッドを呼び出したい場合は`Object.prototype.hasOwnProperty`のように明記する必要があります。
 
 ```javascript
 var obj = Object.create(null);
@@ -161,10 +162,10 @@ Object.prototype.hasOwnProperty.call(obj, "a"); // => true
 
 ### Schema validation of JSON input
 
-[JSON Schema](https://json-schema.org/)では`additionalProperties:false`を指定することで、想定していないプロパティを禁止することができます。
+[JSON Schema](https://json-schema.org/)では`additionalProperties:false`を指定することで、想定していないプロパティを禁止できます。
 適切な JSON Scheme を用いてバリデーションを行うことで Prototype Pollution の対策ができます。
 
-以下は、前述の関数`setValue()`に対し、[ajv](https://ajv.js.org/)を用いて対策を行う例です。
+以下は、前述の関数`setValue()`に対し、[ajv](https://ajv.js.org/)を用いて対策する例です。
 
 ```javascript
 const schema = {
