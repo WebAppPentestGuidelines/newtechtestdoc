@@ -19,15 +19,15 @@ FaaSの特徴として、あるイベントをトリガーにLambdaにホスト�
 
 **API Gateway + Lambda + DynamoDBを用いたAPI**<br>
 APIをサーバーレスで構築する際の基本パターンで、API Gatewayへのリクエストをトリガーに実行されます。
-![動的 Web / モバイルバックエンドの図](img/Pattern-DynamicWeb.3ba6461f647c5156223f5b6710f151c7c542a67a.png)
+![動的 Web / モバイルバックエンドの図](image/Pattern-DynamicWeb.3ba6461f647c5156223f5b6710f151c7c542a67a.png)
 
 **S3にアップロード時に画像を加工するためのLambda**<br>
 S3 Bucketに画像やファイルをアップロードしたイベントをトリガーにLambdaを実行するデザインパターンです。
-![画像処理 / シンプルなデータ加工の図](img/Pattern-S3-processing.0a24e9465dec531156f56ce1c961d00a8e529f3a.png)
+![画像処理 / シンプルなデータ加工の図](image/Pattern-S3-processing.0a24e9465dec531156f56ce1c961d00a8e529f3a.png)
 
 **SNS + SQS(Queue) + Lambdaを用いた業務処理**<br>
 各種重要処理や競合/重複状態を回避するために利用されるデザインパターンで、SNSのPubSub機能を用いて、SQSに投入し、LambdaがそのイベントをもとにQueueに入ったデータを取得し実行されます。
-![イベント駆動の業務処理連携の図](img/Pattern-Integration.77b207fd045bc2283fe06cb76dc934764ca7114a.png)
+![イベント駆動の業務処理連携の図](image/Pattern-Integration.77b207fd045bc2283fe06cb76dc934764ca7114a.png)
 
 # 脆弱性 / 脅威 / 悪用
 
@@ -48,7 +48,7 @@ FaaSの環境変数に格納された認証情報は、`/proc/self/environ`等�
 例として、AWS Lambda(AWSの提供するFaaS)上で動作する擬似的な環境をもとに解説をします。
 
 **擬似環境の構成図**
-![](./img/Pasted-image-20230221233149.png)
+![](./image/Pasted-image-20230221233149.png)
 
 このAWS Lambdaには、環境変数に`SECRET_KEY`という環境変数が設定されており、その値には`SECRET_DUMMY`という値が設定されています。そして、動作するコードとして下記のようなJavaScriptのコードが動いています。
 このアプリケーションはざっくりな機能として、S3からファイルを取得し、その後Lambda内で加工してクライアントに返すという機能を持っています。

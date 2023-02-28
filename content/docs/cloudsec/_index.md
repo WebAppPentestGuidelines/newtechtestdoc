@@ -31,5 +31,5 @@ https://cloudsecurityalliance.org/blog/2021/02/04/the-evolution-of-cloud-computi
 
 * [クラウドストレージサービスにおける設定不備](./storage_service.md)  
 * [Webアプリケーションの脆弱性を利用したクラウドクレデンシャルの奪取](./cloud_credential.md)  
-* [FaaSにおける設定不備と脆弱性の悪用](./FaaS/index.md)  
+* [FaaSにおける設定不備と脆弱性の悪用](./faas.md)  
 * [IDaaSの活用に起因する脆弱性とその悪用](./IDaaS/index.md)  
