@@ -35,7 +35,7 @@ IDaaSを用いる際に発生しうる脅威 / 脆弱性については大きく
 
 ### 脆弱性 / 脅威 / 悪用
 
-- [意図しないサインアップ経路の存在](./presence_of_unintended_signup_paths.md)
-- [権限に関するカスタム属性の変更](./modify_custom_attributes_for_permissions.md)
-- [デフォルトエラーによるユーザーの存在判定](./default_error.md)
-- [EDoS(経済的/資金的なサービス停止攻撃)](./edos.md)
+- [意図しないサインアップ経路の存在](./presence_of_unintended_signup_paths)
+- [権限に関するカスタム属性の変更](./modify_custom_attributes_for_permissions)
+- [デフォルトエラーによるユーザーの存在判定](./default_error)
+- [EDoS(経済的/資金的なサービス停止攻撃)](./edos)
