@@ -3,7 +3,7 @@ defaultContentLanguage = "ja"
 title = "WebApp Testing"
 enableGitInfo = true
 theme = "hugo-book"
-
+baseURL = "https://webapppentestguidelines.github.io/newtechtestdoc/"
 
 # (Optional) If you provide a Disqus shortname, comments will be enabled on
 # all pages.
