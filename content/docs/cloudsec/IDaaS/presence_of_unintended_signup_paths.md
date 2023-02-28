@@ -89,7 +89,6 @@ Firebase Authentication においては、ユーザーの自己サインアッ�
 
  - [Amazon Web Service - Amazon Cognito - 管理者作成ユーザーのポリシーの設定](https://docs.aws.amazon.com/ja_jp/cognito/latest/developerguide/user-pool-settings-admin-create-user-policy.html)
  - [Amazon Cognito における AWS WAF のネイティブサポートが開始](https://aws.amazon.com/jp/about-aws/whats-new/2022/08/amazon-cognito-enables-native-support-aws-waf/)
- - 
  - [Google Cloud - プロジェクトにおける Identity Platform ユーザー > ユーザーのセルフサービス](https://cloud.google.com/identity-platform/docs/concepts-manage-users?hl=ja&_ga=2.183319137.-699514871.1655112464#user-actions)
  - [Flatt Security inc. - Firebase Authentication 7つの落とし穴 - 脆弱性を生むIDaaSの不適切な利用](https://blog.flatt.tech/entry/firebase_authentication_security)
  - [Flatt Security inc. - AWS 診断を事例としたクラウドセキュリティ。サーバーレス環境の不備や見落としがちな Cognito の穴による危険性](https://blog.flatt.tech/entry/cloud_security_aws_case#341-Cognito-User-Pool)
