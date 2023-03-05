@@ -168,11 +168,11 @@ https://docs.aws.amazon.com/ja_jp/AWSEC2/latest/UserGuide/configuring-instance-m
 * [SSRF対策としてAmazonから発表されたIMDSv2の効果と限界](https://blog.tokumaru.org/2019/12/defense-ssrf-amazon-ec2-imdsv2.html)  
 本記事にて説明したSSRFについて原理や対策方法について解説された徳丸浩さんのブログ記事です。また、本記事にて取り扱ったSSRFによるAWSの認証情報の取得についても解説されています。
 
-* [SSRF脆弱性を利用したGCE/GKEインスタンスへの攻撃例](https://blog.ssrf.in/post/example-of-attack-on-gce-and-gke-instance-using-ssrf-vulnerability/)
+* [SSRF脆弱性を利用したGCE/GKEインスタンスへの攻撃例](https://blog.ssrf.in/post/example-of-attack-on-gce-and-gke-instance-using-ssrf-vulnerability/)  
 GCP環境におけるSSRFについて解説されているブログ記事です。
 
 * [Exploiting SSRF in AWS Elastic Beanstalk](https://notsosecure.com/exploiting-ssrf-aws-elastic-beanstalk)  
-NotSoSecure社によるAWS Elastic Beanstalk・AWS CodePipelineを利用している環境で、SSRFをトリガとして最終的にはRCEまで行うことができた事例です。
+AWS Elastic Beanstalk・AWS CodePipelineを利用している環境で、SSRFをトリガとして最終的にはRCEまで行うことができたNotSoSecure社の事例です。
 
 * [PenTesterが知っている危ないAWS環境の共通点](https://www.slideshare.net/zaki4649/pentesteraws)  
 AWS環境において漏洩した認証情報を利用した攻撃とその対策についてまとめているスライドです。
