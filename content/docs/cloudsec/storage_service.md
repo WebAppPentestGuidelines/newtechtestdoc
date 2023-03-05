@@ -119,7 +119,7 @@ https://www.safetydetectives.com/news/doctorsme-leak-report/
 * Azure Blob Storageの設定不備により機密データが公開されていた事例  
 https://www.vpnmentor.com/blog/report-microsoft-dynamics-leak/
 https://www.theregister.com/2020/12/01/investment_fund_data_breach/  
-https://www.techradar.com/news/microsoft-azure-breach-left-thousands-of-customer-records-exposed
+https://www.techradar.com/news/microsoft-azure-breach-left-thousands-of-customer-records-exposed  
 https://www.bleepingcomputer.com/news/security/exposed-azure-bucket-leaked-passports-ids-of-volleyball-reporters/
 
 * Cloud Storageの設定不備により機密データが公開されていた事例  
