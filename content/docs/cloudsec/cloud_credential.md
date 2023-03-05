@@ -102,7 +102,7 @@ ec2role
 ```
 
 そして、取得したrole-nameを利用してパスの一部を変更したURLの値を送信します。
-同様にSSRFの脆弱性を利用することで、以下のように一時的に発行された認証情報を取得できます。
+同様のSSRFの脆弱性を利用することで、以下のように一時的に発行された認証情報を取得できます。
 
 * リクエストURL
 ```
@@ -138,12 +138,16 @@ Content-Type: text/html; charset=UTF-8
  * XXE
  * OSコマンドインジェクション
 
-なお、上記はあくまで一例です。クラウド環境のWebサービスにおける脆弱性診断では、このようにWebアプリケーションの脆弱性を利用されることによってクラウド環境側の認証情報の取得などにつながってしまう可能性があることも想定をしたうえで、評価する必要があると考えます。従来から知られているWeb脆弱性を検出する手法についてはWebアプリケーション脆弱性診断ガイドラインをご参照ください。
+なお、上記はあくまで一例です。
+本記事にては解説したように、クラウド環境のWebサービスでは、Webアプリケーションの脆弱性を利用されてクラウド環境側の認証情報の取得などにつながってしまう可能性があります。
+そのため脆弱性診断では、上記のようなケースを想定した上で、評価する必要があると考えます。
+従来から知られているWeb脆弱性を検出する手法についてはWebアプリケーション脆弱性診断ガイドラインをご参照ください。
 * [Webアプリケーション脆弱性診断ガイドライン](https://github.com/OWASP/www-chapter-japan/tree/master/skillmap_project#web%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E8%84%86%E5%BC%B1%E6%80%A7%E8%A8%BA%E6%96%AD%E3%82%AC%E3%82%A4%E3%83%89%E3%83%A9%E3%82%A4%E3%83%B3)
 
 ## 事例紹介
 
-米金融大手Capital Oneにおける不正アクセスにおいて、WAF側の設定ミスにより、本記事にて説明しているSSRFの脆弱性を悪用され、AWS環境の認証情報を取得され、S3バケットに格納されている個人情報が漏洩してしまったという事例です。
+米金融大手Capital Oneにおいて、本記事にて説明しているSSRFの脆弱性を悪用されてしまった事例です。
+AWS環境のWAF側の設定ミスにより、SSRFの脆弱性を攻撃によってAWS環境の認証情報を取得されて、S3バケットに格納されている個人情報が漏洩しました。
 https://piyolog.hatenadiary.jp/entry/2019/08/06/062154
 
 ## 対策
@@ -168,7 +172,7 @@ https://docs.aws.amazon.com/ja_jp/AWSEC2/latest/UserGuide/configuring-instance-m
 GCP環境におけるSSRFについて解説されているブログ記事です。
 
 * [Exploiting SSRF in AWS Elastic Beanstalk](https://notsosecure.com/exploiting-ssrf-aws-elastic-beanstalk)  
-AWS Elastic BeanstalkおよびAWS CodePipelineを利用している環境にてSSRFをトリガとして最終的にはRCEまで行うことができた事例について解説しているNotSoSecure社の記事です。
+NotSoSecure社によるAWS Elastic Beanstalk・AWS CodePipelineを利用している環境で、SSRFをトリガとして最終的にはRCEまで行うことができた事例です。
 
 * [PenTesterが知っている危ないAWS環境の共通点](https://www.slideshare.net/zaki4649/pentesteraws)  
 AWS環境において漏洩した認証情報を利用した攻撃とその対策についてまとめているスライドです。
