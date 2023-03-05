@@ -109,29 +109,29 @@ aws s3api put-object --bucket <bucket-name> --key <key name> --body <local file-
 
 * S3の設定不備に関するHacker Oneのレポート   
 https://hackerone.com/reports/128088  
-https://hackerone.com/reports/1062803
+https://hackerone.com/reports/1062803  
 https://hackerone.com/reports/129381
 
 * S3設定不備により機密データが公開されていた事例  
-https://www.skyhighsecurity.com/en-us/about/resources/intelligence-digest/unsecured-servers-can-put-lives-at-stake.html
+https://www.skyhighsecurity.com/en-us/about/resources/intelligence-digest/unsecured-servers-can-put-lives-at-stake.html  
 https://www.safetydetectives.com/news/doctorsme-leak-report/
 
 * Azure Blob Storageの設定不備により機密データが公開されていた事例  
 https://www.vpnmentor.com/blog/report-microsoft-dynamics-leak/
-https://www.theregister.com/2020/12/01/investment_fund_data_breach/
+https://www.theregister.com/2020/12/01/investment_fund_data_breach/  
 https://www.techradar.com/news/microsoft-azure-breach-left-thousands-of-customer-records-exposed
 https://www.bleepingcomputer.com/news/security/exposed-azure-bucket-leaked-passports-ids-of-volleyball-reporters/
 
 * Cloud Storageの設定不備により機密データが公開されていた事例  
 https://www.comparitech.com/blog/information-security/google-cloud-buckets-unauthorized-access-report/
 
-* ファイルをアップロードが可能となっているような設定ミスを攻撃者に悪用された事例  
+* ファイルアップロードが可能となっているような設定ミスを攻撃者に悪用された事例  
 https://japan.zdnet.com/article/35139832/
 
 ## 対策
 
 公開を意図しないクラウドストレージが存在しないように、アクセス制御の設定を適切に行うようにしてください。
-また、公開を意図するクラウドストレージでは、機微な情報が含まれているファイルが存在しないか確認をしてください。
+また、公開を意図するクラウドストレージでは、機微な情報が含まれているファイルが存在しないか確認してください。
 
 ## 学習方法/参考文献
 
