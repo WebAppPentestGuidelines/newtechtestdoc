@@ -87,16 +87,4 @@ s3recon s3finder また、公開状態のクラウドストレージやファイ
 Grayhatwarfare 脆弱性診断の実施時には、HTMLソース・HTTPレスポンス・モバイルアプリケーションのソースコード内などに、S3バケットのURLや探索するためのキーワードが、存在しないかを確認すべきでしょう。 発見したキーワードをもとにクラウドストレージのエンドポイントを探索してみてください。 なお、探索によって存在が判明したS3バケットのエンドポイントのURLが診断対象の範囲に含まれるかどうかについては、調査する前にあらかじめ顧客やサイト管理者に対して確認するべきであると考えます。
 ブラウザでの確認 # ブラウザ経由でアクセスして、S3バケットにおいてファイルの一覧の表示が許可されている場合には以下のようなXML形式のレスポンスが表示されます。
 この設定状態の場合には、不特定多数へストレージ内に存在するファイルの内容が判明してしまうため、いわゆるディレクトリリスティングと同様の問題があるといえます。そのためこの設定状態が意図したものであるかを確認すべきでしょう。
-コマンドラインでの確認 # コマンドラインを用いて、クラウドストレージのファイルのダウンロードや、ファイルのアップロードについて確認できます。</description></item><item><title/><link>https://webapppentestguidelines.github.io/newtechtestdoc/docs/nosql_injection/nosqli/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://webapppentestguidelines.github.io/newtechtestdoc/docs/nosql_injection/nosqli/</guid><description>NoSQL Injectionとは # NoSQLデータベースを利用したWebアプリケーションにおける脆弱性の事です。 NoSQLはより柔軟なデータ形式を使用する、SQLを利用しないデータベースシステムを指します。一般的にデータを以下の4つに管理します。 key-value型、列指向型、グラフ型、ドキュメント型の4つです。
-NoSQL Injectionの原因 # NoSQLデータベースは、SQLデータベースとは異なり、クエリを実行する際にデータを構造化された形式で保存する必要がないため、従来のSQL Injectionとは異なる形で攻撃が発生します。こういったことが起こる原因として、以下のようなものが考えられます。
-不十分な入力値の検証 クエリの構築における不適切な処理 データベースの設定不備 NoSQL Injectionが及ぼす影響 # 攻撃者はパラメータを改ざんし、データベースに意図しない挙動をさせることができます。 また、使用するnosqlの種類によっては任意のJavaScriptを実行される可能性もあります。 よって、アプリケーションの機密性、整合性、可用性を損ないます。
-事例紹介 # CVE-2021-22911 # Rocket Chatで見つかったNoSQLInjectionです。 getPasswordPolicy関数で、NoSQL Injectionが実行できます。 認証/認可を必要とせずに、パスワードリセットトークンを流出させることで、アカウントの乗っ取りが可能でした。 管理者アカウントを乗っ取ることで、RCEにつなげることも可能だったようです。
-ref : https://www.cve.org/CVERecord?id=CVE-2021-22911
-CVE-2021-20736 # GROWI 日本製のOSSで見つかったNoSQL Injectionです。 Gitの編集ログをみるに、アクセストークンパーサにNoSQL Injectionがありました。
-ref : https://weseek.co.jp/ja/news/2021/06/14/growi-nosql-ingection/
-ref : JVN#95457785
-CVE-2020-35666 # Software : Steedos Low Code DevOps Platformで見つかったNoSQL Injectionです。
-ポストされるパラメータを、X-User-Id[$ne]=1のように書き換える事で、攻撃が実行されます。
-ref : https://github.com/steedos/steedos-platform/issues/1245
-診断観点 # SSJIとは # SSJIは、Server Side JavaScript Injectionが正式名称となっています。これは、JavaScript実行の不適切な設定などによって、攻撃者から送信された不正なJavaScriptコードが、サーバサイド側にて実行されてしまう攻撃手法のことです。
-Mongo # 以降は脆弱なアプリケーションを利用して、それぞれの攻撃を確認します。</description></item></channel></rss>
+コマンドラインでの確認 # コマンドラインを用いて、クラウドストレージのファイルのダウンロードや、ファイルのアップロードについて確認できます。</description></item></channel></rss>
