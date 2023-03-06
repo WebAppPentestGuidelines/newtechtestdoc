@@ -15,43 +15,23 @@ NoSQLデータベースは、SQLデータベースとは異なり、クエリを
 - クエリの構築における不適切な処理
 - データベースの設定不備
 
-# NoSQL Injectionが及ぼす影響
+## 影響
 攻撃者はパラメータを改ざんし、データベースに意図しない挙動をさせることができます。
 また、使用するnosqlの種類によっては任意のJavaScriptを実行される可能性もあります。
 よって、アプリケーションの機密性、整合性、可用性を損ないます。
 
-# 事例紹介
-
-## CVE-2021-22911
-Rocket Chatで見つかったNoSQLInjectionです。
-getPasswordPolicy関数で、NoSQL Injectionが実行できます。
-認証/認可を必要とせずに、パスワードリセットトークンを流出させることで、アカウントの乗っ取りが可能でした。
-管理者アカウントを乗っ取ることで、RCEにつなげることも可能だったようです。  
-ref : https://www.cve.org/CVERecord?id=CVE-2021-22911
-
-## CVE-2021-20736
-GROWI 日本製のOSSで見つかったNoSQL Injectionです。
-Gitの編集ログをみるに、アクセストークンパーサにNoSQL Injectionがありました。  
-ref : https://weseek.co.jp/ja/news/2021/06/14/growi-nosql-ingection/  
-ref : [JVN#95457785](https://jvn.jp/jp/JVN95457785/index.html)
-
-##  CVE-2020-35666
-Software : Steedos Low Code DevOps Platformで見つかったNoSQL Injectionです。  
-ポストされるパラメータを、`X-User-Id[$ne]=1`のように書き換える事で、攻撃が実行されます。  
-ref : https://github.com/steedos/steedos-platform/issues/1245
-
-# 診断観点
-## SSJIとは
+## 診断観点/攻撃手法
+### SSJIとは
 SSJIは、Server Side JavaScript Injectionが正式名称となっています。これは、JavaScript実行の不適切な設定などによって、攻撃者から送信された不正なJavaScriptコードが、サーバサイド側にて実行されてしまう攻撃手法のことです。  
 
-## Mongo
+### Mongo
 以降は脆弱なアプリケーションを利用して、それぞれの攻撃を確認します。
-### Mongo SSJI
+#### Mongo SSJI
 Mongo SSJIについて、DoS攻撃を例に説明します。
 MongoDBは、スクリプト言語としてJavaScriptを使うことができます。脆弱なアプリで、`$where`演算子を利用している箇所に対して`test'; while(1)'`を送信します。
 すると、無限ループのJavaScriptのコードが実行され、レスポンスが返ってこないことを確認できます。  
 ![nosqli_image1](img/nosqli_image1.png)  
-### 否定演算子の挿入
+#### 否定演算子の挿入
 否定演算子を挿入について、ログインバイパスを例に説明します。  
 正常なリクエストとして、適当な値、`{"username":"admin","password":"admin"}`を送信します。適当な値を送信しているので、ログインに失敗していることが確認できます。  
 ![nosqli_image2](img/nosqli_image2.png)  
@@ -66,7 +46,7 @@ array("user" => array("$ne" => "admin"), "pass" => array("$ne" => "pass"));
 ```
 上記の値が処理されることで、ユーザー名の部分は`user != 'admin'`、パスワードの部分は`pass != 'pass'` となります。よって、指定した値以外のすべてのユーザーにマッチするのでログインできてしまいます。また、指定した値が存在しなかった場合は登録ユーザ全員がマッチします。
 
-### Blind NoSQL Injection
+#### Blind NoSQL Injection
 `$regex`演算子を利用したパスワードの文字数推測を例に説明します。  
 まず、ユーザネームが`guest`,パスワードは`password`というアカウントがあります。  
 ここで、`{"username":"guest","password":"password"}`を送信すると、ログインに成功します。  
@@ -80,9 +60,9 @@ array("user" => array("$ne" => "admin"), "pass" => array("$ne" => "pass"));
 ![nosqli_image6](img/nosqli_image6.png)  
 すると、パスワードの長さが8文字と推測したリクエストにてログインが成功していることが分かります。実際にパスワードである文字列`password`は8文字で、パスワードの文字列の長さが推測できます。今回は文字数を推測しましたが、同様に正規表現を用い、文字種を次々と入れレスポンスの差分をみることで、パスワードの文字列そのものを線形探索するといったこともできます。
 
-## Redis
+### Redis
 
-### 意図しないデータの挿入
+#### 意図しないデータの挿入
 Nodeでの例を説明します。広く使われているqsモジュールは、クエリ文字列にオブジェクトや配列をパラメータとして渡すことができます。Expressのような一般的なフレームワークでは、このモジュールがデフォルトで有効になっています。このような場合、渡された値によっては、後続のすべてのパラメータを上書きできる可能性があります。その結果、意図しない値がkey-valueペアとして格納されることで、意図しないデータを登録されてしまう事が考えられます。
 
 ####  jsonからの受け取りで挿入
@@ -120,8 +100,26 @@ redis.set("foo", "default");
 ```
 redis.set(["foo", "evil"], "default");
 ```
+## 事例紹介
+### CVE-2021-22911
+Rocket Chatで見つかったNoSQLInjectionです。
+getPasswordPolicy関数で、NoSQL Injectionが実行できます。
+認証/認可を必要とせずに、パスワードリセットトークンを流出させることで、アカウントの乗っ取りが可能でした。
+管理者アカウントを乗っ取ることで、RCEにつなげることも可能だったようです。  
+ref : https://www.cve.org/CVERecord?id=CVE-2021-22911
 
-# 対策
+### CVE-2021-20736
+GROWI 日本製のOSSで見つかったNoSQL Injectionです。
+Gitの編集ログをみるに、アクセストークンパーサにNoSQL Injectionがありました。  
+ref : https://weseek.co.jp/ja/news/2021/06/14/growi-nosql-ingection/  
+ref : [JVN#95457785](https://jvn.jp/jp/JVN95457785/index.html)
+
+###  CVE-2020-35666
+Software : Steedos Low Code DevOps Platformで見つかったNoSQL Injectionです。  
+ポストされるパラメータを、`X-User-Id[$ne]=1`のように書き換える事で、攻撃が実行されます。  
+ref : https://github.com/steedos/steedos-platform/issues/1245
+
+## 対策
 
 ## MongoDB
 - 最新バージョンを使用
@@ -152,9 +150,6 @@ javascriptEnabled:false
 # 参考資料
 - [NoSQL Injection > Redis](https://medium.com/@PatrickSpiegel/https-medium-com-patrickspiegel-nosql-injection-redis-25b332d09e58)
 - [NoSQL Injection > Redis. Ever considered injection a problem for… | by Patrick Spiegel | Medium](https://medium.com/@PatrickSpiegel/https-medium-com-patrickspiegel-nosql-injection-redis-25b332d09e58)
-
-
-# 補助ツール紹介
 - [NoSQLi Scanner - PortSwigger](https://portswigger.net/bappstore/605a859f0a814f0cbbdce92bc64233b4)
 - [GitHub - codingo/NoSQLMap: Automated NoSQL database enumeration and web application exploitation tool.](https://github.com/codingo/NoSQLMap)
 - [GitHub - digininja/nosqlilab: A lab for playing with NoSQL Injection](https://github.com/digininja/nosqlilab)
