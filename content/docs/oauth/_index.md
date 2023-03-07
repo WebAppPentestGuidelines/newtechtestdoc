@@ -6,7 +6,7 @@ weight: 999
 
 # OAuth/OpenID Connect
 ## 概要
-本章では、OAuth 2.0およびOpenID Connect(と、それに関連するしくみについての脆弱性や攻撃手法について説明します。
+本章では、OAuth 2.0およびOpenID Connect(OIDC)と、それに関連するしくみについての脆弱性や攻撃手法について説明します。
 なお、本ドキュメントに記載する用語、パラメータ名などはRFC 6749およびOpenID Connect Core 1.0 incorporating errata set 1の記載に準拠します。
 
 # OAuth 2.0
