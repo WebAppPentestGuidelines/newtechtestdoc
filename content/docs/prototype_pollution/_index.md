@@ -229,7 +229,7 @@ console.log(a.polluted); // => undefined
 
 ### DOM Invader を用いた効率的な診断
 
-DOM Invader は Burp の機能で DOM XSS のテストや`postMessage()`の操作を用いたテストの支援を提供します。この機能を用いることでクライアントサイドの Prototype Pollution の自動検出や手動での検証の補助として利用可能です。
+DOM Invader は BurpSuite の機能で DOM XSS のテストや`postMessage()`の操作を用いたテストの支援を提供します。この機能を用いることでクライアントサイドの Prototype Pollution の自動検出や手動での検証の補助として利用可能です。
 
 詳しい検証方法は[Testing for client-side prototype pollution](https://portswigger.net/burp/documentation/desktop/tools/dom-invader/prototype-pollution)で丁寧に解説されているので、こちらを参照してください。
 
