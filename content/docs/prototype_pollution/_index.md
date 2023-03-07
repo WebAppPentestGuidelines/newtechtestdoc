@@ -54,7 +54,7 @@ const obj = {};
 console.log(obj.polluted); // => 1
 ```
 
-上記の PoC では、引数`src`に`{"__proto__": {"polluted": 1}}`というオブジェクトが渡しています。その値を10 行目で`tgt[__proto__] = {"polluted":1}`のような代入が実行されることで攻撃が成功しています。
+上記の PoC では、引数`src`に`{"__proto__": {"polluted": 1}}`というオブジェクトを渡しています。その値を10 行目で`tgt[__proto__] = {"polluted":1}`のような代入が実行されることで攻撃が成功しています。
 
 ### 2. `setValue(obj, key, value)`のようにオブジェクトのプロパティを設定するケース
 
@@ -85,7 +85,7 @@ const a = "";
 console.log(a.polluted); // => 1
 ```
 
-上記の PoC では、引数`key`に`__proto__.polluted`という値が渡しています。その値が再帰的に処理されることで結果的に 13 行目で`obj[__proto__][polluted] = 1`のような代入が実行されることで攻撃が成功しています。
+上記の PoC では、引数`key`に`__proto__.polluted`という値を渡しています。その値が再帰的に処理されることで結果的に 13 行目で`obj[__proto__][polluted] = 1`のような代入が実行されることで攻撃が成功しています。
 
 ## 事例紹介
 
@@ -95,7 +95,7 @@ console.log(a.polluted); // => 1
 
 ## 対策
 
-Prototype Pollution の対策にはいくつか方法があるため、アプリケーションの規模や副作用を考慮して、適当な対策を選択するようにしてください。
+Prototype Pollution の対策にはいくつか方法があるため、アプリケーションの規模や副作用を考慮して、適切な対策を選択するようにしてください。
 ここでは代表的な下記 5 つの方法を紹介します。
 
 - ライブラリを利用する方法
@@ -129,7 +129,7 @@ console.log({}.test); // => undefined
 ### `Object`の代わりに`Map`を使う方法
 
 ES6 以降では、`Object`の代わりに`Map`が利用できます。
-`Object`を単純に key/value のデータ構造を利用している場合は、それらを`Map`に置き換えることで、Prototype Pollution を防ぐことができます。
+`Object`で単純に key/value のデータ構造を利用している場合は、それらを`Map`に置き換えることで、Prototype Pollution を防ぐことができます。
 
 ### オブジェクトの作成を`Object.create(null)`で行う方法
 
