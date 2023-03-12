@@ -15,7 +15,7 @@ weight: 1
 
 ## 原因
 
-CognitoをはじめとするIDaaSのエラーメッセージではデフォルトのメッセージが詳細な情報をレスポンスとして返すケースが存在します。
+CognitoをはじめとするIDaaSのエラーメッセージでは、デフォルトのメッセージが詳細な情報をレスポンスとして返るケースが存在します。
 
 - [Auth0の場合](https://auth0.com/docs/libraries/common-auth0-library-authentication-errors)
 - [Cognitoの場合](https://docs.aws.amazon.com/ja_jp/cognito/latest/developerguide/cognito-user-pool-managing-errors.html)
