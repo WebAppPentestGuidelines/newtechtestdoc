@@ -52,8 +52,8 @@ TOCTOU の脆弱性を見つけるためには、データのチェック処理�
 
 ### Burp Intruder を使用した診断
 
-Burp Intruder を使用して TOCTOU の診断を確認するパターンを紹介します。
-Burp Intruder は Burp に搭載されている機能の 1 つですが、Community Edition には機能制限があるため Pro Edition でしか診断できません。
+Burp に搭載されている機能の 1 つである Burp Intruder を使用して TOCTOU の診断を確認するパターンを紹介します。
+なお、 Community Edition には機能制限があるため Pro Edition でしか診断できません。
 Community Edition を使用する場合は、後述する Turbo Intruder を使用した診断方法をご覧ください。
 
 始めに、送信したいリクエストを Burp Intruder にセットします。
