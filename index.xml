@@ -40,7 +40,7 @@ Amazon Cognito User Poolをはじめ、一部のIDaaSではクライアントID�
 一時的対策 # 一時的対策として、IDaaSへのIP制限等を行い、管理者利用するIDaaSへの一般ユーザーのアクセスをIPレベルで制限してください。
 また、本対策を恒久的な対策とせず、根本的な対策を用いて順次対策を行なってください。
 具体: Amazon Cognitoの場合 # Amazon Cognito User Poolにおいては、ユーザーの自己サインアップを無効化する機能が存在するので、この機能の無効化をおこなってください。</description></item><item><title>FaaSにおける設定不備と脆弱性の悪用</title><link>https://webapppentestguidelines.github.io/newtechtestdoc/docs/cloudsec/faas/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://webapppentestguidelines.github.io/newtechtestdoc/docs/cloudsec/faas/</guid><description>FaaSにおける設定不備と脆弱性の悪用 # 概要 # 本稿では、ウェブやモバイルのアプリケーションで利用されるプログラムの実行を行うサービスである、FaaSの活用と、実装や利用方法が起因となるアプリケーションの脆弱性について解説を行います。
-FaaSとは # FaaS(Function as a Service)は、サーバーレスなアプリケーションやマイクロサービスで用いられるサービスで、一定の制約下でプログラムを実行を実行可能にする、IaaSやPaaSのようにクラウド上で利用可能なコンピュータリソースを提供するサービス形態の一つです。
+FaaSとは # FaaS(Function as a Service)は、サーバーレスなアプリケーションやマイクロサービスで用いられるサービスで、一定の制約下でプログラムの実行を実行可能にする、IaaSやPaaSのようにクラウド上で利用可能なコンピュータリソースを提供するサービス形態の一つです。
 このFaaSは多くのクラウドベンダーで提供されており、私たちは気づかないうちにこれらサービスと向き合っているかもしれません。
 AWS Lambda Google Cloud Functions Azure Functions Cloudflare Workers Netlify Functions FaaSの特徴として、あるイベントをトリガーにLambdaにホストされたプログラムが実行されることが挙げられます。下記に簡単な例
 例: Amazon Web Service Japan 形で考えるサーバーレス設計より
@@ -48,10 +48,10 @@ API Gateway + Lambda + DynamoDBを用いたAPI APIをサーバーレスで構築
 概要 # 多くのクラウドプロバイダーの提供するFaaSでは、プログラムを実行する際に用いる環境変数設定できる機能が存在します。これら環境変数機能を用いることで、FaaS上で動作するアプリケーション等に値を渡すことが可能です。 この機能では基本的にAPIキーやDBの認証情報、IAMの認証情報などの機密性の高い情報を格納することを非推奨の項目としています。しかし、この環境変数内に認証情報を格納することは禁止されているわけではないため、利用者の実装次第ではこれら情報が含まれている可能性が存在します。 このように環境変数を用いることは、直接的な攻撃につながるわけではありませんが潜在的に認証情報が取得される可能性を高めている状況にあります。
 原理 # FaaSの環境変数に格納された認証情報は、/proc/self/environ等から読み取ることが可能で、アプリケーション上の実装の不備をつくことで、入手される可能性があります。
 擬似環境での解説 # 例として、AWS Lambda(AWSの提供するFaaS)上で動作する擬似的な環境をもとに解説をします。
-擬似環境の構成図 このAWS Lambdaには、環境変数にSECRET_KEYという環境変数が設定されており、その値にはSECRET_DUMMYという値が設定されています。そして、動作するコードとして下記のようなJavaScriptのコードが動いています。 このアプリケーションはざっくりな機能として、S3からファイルを取得し、その後Lambda内で加工してクライアントに返すという機能を持っています。 app.</description></item><item><title>Webアプリケーションの脆弱性を利用した認証情報の窃取</title><link>https://webapppentestguidelines.github.io/newtechtestdoc/docs/cloudsec/cloud_credential/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://webapppentestguidelines.github.io/newtechtestdoc/docs/cloudsec/cloud_credential/</guid><description>Webアプリケーションの脆弱性を利用した認証情報の窃取 # 概要 # クラウド環境を利用してWebサービスを提供するシステムにおいて、脆弱性を利用されクラウドサービス側の認証情報（認証キー・APIトークンなど）を窃取されてしまう可能性が危険視されています。 これらの認証情報が漏洩した場合には、漏洩した認証情報に紐ずく権限を利用され、クラウドプラットフォーム側の機能を悪用されてしまう危険性があります。 上記のような攻撃には従来から存在するWebアプリケーションの脆弱性を利用される可能性があります。
+擬似環境の構成図 このAWS Lambdaには、環境変数にSECRET_KEYという環境変数が設定されており、その値にはSECRET_DUMMYという値が設定されています。そして、動作するコードとして下記のようなJavaScriptのコードが動いています。 このアプリケーションはざっくりな機能として、S3からファイルを取得し、その後Lambda内で加工してクライアントに返すという機能を持っています。 app.</description></item><item><title>Webアプリケーションの脆弱性を利用した認証情報の窃取</title><link>https://webapppentestguidelines.github.io/newtechtestdoc/docs/cloudsec/cloud_credential/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://webapppentestguidelines.github.io/newtechtestdoc/docs/cloudsec/cloud_credential/</guid><description>Webアプリケーションの脆弱性を利用した認証情報の窃取 # 概要 # クラウド環境を利用してWebサービスを提供するシステムにおいて、脆弱性を利用されクラウドサービス側の認証情報（認証キー・APIトークンなど）を窃取されてしまう可能性が危険視されています。 これらの認証情報が漏洩した場合には、漏洩した認証情報に紐づく権限を利用され、クラウドプラットフォーム側の機能を悪用されてしまう危険性があります。 上記のような攻撃には従来から存在するWebアプリケーションの脆弱性を利用される可能性があります。
 原因と影響 # 認証情報の種類や存在する場所などについては、利用しているクラウドプラットフォームやサービスの種類によって異なります。 あくまで一例ですがシステム内の環境変数・設定ファイルなどにこれらの認証情報が設定されているケースが多く、Webアプリケーションの脆弱性を利用されることによって窃取されてしまう危険性があります。
 Webアプリケーションにて詳細情報を表示するエラー画面などから環境変数に設定された認証情報が漏洩 ディレクトリトラバーサルの脆弱性を利用されて、設定ファイルに記載された認証情報が漏洩 また、AWSなどのパブリッククラウドサービスではメタデータサービスと呼ばれる機能が存在します。 この機能では、メタデータと呼ばれるインスタンス固有のデータ(インスタンスID、OSデータ、一時的に付与される認証情報など)を内部Web APIを通じて取得するといったしくみが提供されています。 SSRF(Server Side Request Forgery)の脆弱性を利用することで、この機能を悪用してメタデータを不正に取得され、認証情報を窃取されてしまう攻撃手法が知られています。
-診断観点 # 本記事ではAWS環境を題材にSSRFを脆弱性を利用して、認証情報を取得する流れについて紹介します。
+診断観点 # 本記事ではAWS環境を題材にSSRFの脆弱性を利用して、認証情報を取得する流れについて紹介します。
 SSRFは、攻撃者が指定した任意のサーバに対してHTTPリクエストを行うように、サーバサイドアプリケーションを誘導させるというものです。 これを利用して、攻撃者は脆弱性の存在するサーバを踏み台として他サーバにアクセスしたり、自身が直接到達できないサーバに対してアクセスできます。
 脆弱性の例として、以下のPHPのサンプルコードを用意しました。
 &amp;lt;?php
