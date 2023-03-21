@@ -10,7 +10,7 @@ weight: 1
 
 ## 原因
 
-管理者画面や会員向けのサービスなどの設計や要件レベルでサインアップ経路の例として、管理者以外がユーザーの作成を想定していないケースが存在します。本稿ではAmazon Cognitoの誤った利用を例に原因について解説を行っていきます。
+管理者画面や会員向けのサービスなどの設計や要件レベルでのサインアップ経路の例として、管理者以外がユーザーの作成を想定していないケースが存在します。本稿ではAmazon Cognitoの誤った利用を例に原因について解説を行っていきます。
 
 ```sh
 $ CLIENT_ID="xxxxxxxxxxxxxxxxxxxxxxxxxx"
@@ -27,7 +27,7 @@ $ aws cognito-idp sign-up \
 
 **誤った利用の例. サインアップに関する不適切な権限の分離**
 
-Amazon Cognito User Poolをはじめ、一部のIDaaSではクライアントIDのような識別子を用いて発行されるTokenに権限設定している。Cognitoではアプリクライアントと呼ばれるクライアントIDを用いてTokenを発行しており、このアプリクライアントに設定される権限をOIDCのScopeとして、JWT形式のトークンを発行します。
+Amazon Cognito User Poolをはじめ、一部のIDaaSではクライアントIDのような識別子を用いて発行されるTokenに権限設定しています。Cognitoではアプリクライアントと呼ばれるクライアントIDを用いてTokenを発行しており、このアプリクライアントに設定される権限をOIDCのScopeとして、JWT形式のトークンを発行します。
 
 このアプリクライアントを一般ユーザーと管理者ユーザーで別けて利用している場合、属性へのアクセスに関しては制御可能だが、サインアップに関してはアプリクライアントを介して制御を行うことができません。そのため、本来意図したサインアップ経路の制限を行うことはできないため、第三者がこのアプリクライアントを介して自己サインアップが行えてしまいます。
 
@@ -78,9 +78,9 @@ Google Identity Platformにおいては、ユーザーの自己サインアッ�
 
 #### 具体: Firebase Authentication の場合
 
-Firebase Authentication においては、ユーザーの自己サインアップ機能が存在しないため、無効化を行うことはできません。次善的対策として、custom claimによる登録フローに関する属性を追加し、セキュリティルールにおけるバリデーションで不正に作成されたユーザーが操作ができないように確認を行なってください。
+Firebase Authentication においては、ユーザーの自己サインアップ機能が存在しないため、無効化を行うことはできません。暫定的な対策として、custom claimによる登録フローに関する属性を追加し、セキュリティルールにおけるバリデーションで不正に作成されたユーザーが操作ができないように確認を行なってください。
 
-また、custom claimに関しては管理者APIへのアクセスへのアクセスが必要なため、Admin SDKを用いたAPIを実装し、それを介してアクセスをおこなってください。
+また、custom claimに関しては管理者APIへのアクセスが必要なため、Admin SDKを用いたAPIを実装し、それを介してアクセスをおこなってください。
 
 ## 事例
 - [Internet-Scale analysis of AWS Cognito Security](https://andresriancho.com/wp-content/uploads/2019/06/whitepaper-internet-scale-analysis-of-aws-cognito-security.pdf)
