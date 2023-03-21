@@ -28,10 +28,10 @@ Auth0の場合 Cognitoの場合 影響 # エラーメッセージにおいてサ
 対策 # 対策として、デフォルトのエラーメッセージを変更し、認証認可に係るエラーに関して統一されたカスタムメッセージに変更することをお勧めします。
 また、上記の対策が不可能なサービス(Firebase AuthのID/Pass認証)も存在するため、その点を考慮して対策等をおこなってください。
 学習方法/参考文献 # Amazon Web Service - Amazon Cognito - エラーレスポンスの管理 Auth0 OWASP チートシート - 認証とエラー メッセージ Amazon Web Service - Amazon Cognito - 認証チャレンジの作成の Lambda トリガー</description></item><item><title>意図しないサインアップ経路の存在 - IDaaS</title><link>https://webapppentestguidelines.github.io/newtechtestdoc/docs/cloudsec/idaas/presence_of_unintended_signup_paths/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://webapppentestguidelines.github.io/newtechtestdoc/docs/cloudsec/idaas/presence_of_unintended_signup_paths/</guid><description>意図しないサインアップ経路の存在 # 概要 # 管理者画面や会員向けのサービスなどの設計や要件レベルでサインアップ経路を制限しているアプリケーションにおいて、IDaaSの設定不備や誤った利用によって意図しない形でのサインアップが可能になっている場合が存在します。
-原因 # 管理者画面や会員向けのサービスなどの設計や要件レベルでサインアップ経路の例として、管理者以外がユーザーの作成を想定していないケースが存在します。本稿ではAmazon Cognitoの誤った利用を例に原因について解説を行っていきます。
+原因 # 管理者画面や会員向けのサービスなどの設計や要件レベルでのサインアップ経路の例として、管理者以外がユーザーの作成を想定していないケースが存在します。本稿ではAmazon Cognitoの誤った利用を例に原因について解説を行っていきます。
 $ CLIENT_ID=&amp;#34;xxxxxxxxxxxxxxxxxxxxxxxxxx&amp;#34; $ USER_NAME=&amp;#34;username&amp;#34; $ PASSWORD=&amp;#34;P4ssW0rD&amp;#34; $ ATTRIBUTES=&amp;#34;[]&amp;#34; $ aws cognito-idp sign-up \ --client-id $CLIENT_ID \ --username $USER_NAME \ --password $PASSWORD \ --user-attributes $ATTRIBUTES \ --no-sign-request 誤った利用の例. サインアップに関する不適切な権限の分離
-Amazon Cognito User Poolをはじめ、一部のIDaaSではクライアントIDのような識別子を用いて発行されるTokenに権限設定している。Cognitoではアプリクライアントと呼ばれるクライアントIDを用いてTokenを発行しており、このアプリクライアントに設定される権限をOIDCのScopeとして、JWT形式のトークンを発行します。
-このアプリクライアントを一般ユーザーと管理者ユーザーで別けて利用している場合、属性へのアクセスに関しては制御可能だが、サインアップに関してはアプリクライアントを介して制御を行うことができないので本来意図したサインアップ経路の制限を行うことはできませんので、第三者がこのアプリクライアントを介して自己サインアップが行えてしまいます。
+Amazon Cognito User Poolをはじめ、一部のIDaaSではクライアントIDのような識別子を用いて発行されるTokenに権限設定しています。Cognitoではアプリクライアントと呼ばれるクライアントIDを用いてTokenを発行しており、このアプリクライアントに設定される権限をOIDCのScopeとして、JWT形式のトークンを発行します。
+このアプリクライアントを一般ユーザーと管理者ユーザーで別けて利用している場合、属性へのアクセスに関しては制御可能ですが、サインアップに関してはアプリクライアントを介して制御できません。そのため、第三者がこのアプリクライアントを介して自己サインアップできる可能性があります。
 影響 # 本来であれば閲覧を想定していない第三者が、該当の画面やエンドポイントへのアクセスを行える可能性があります。
 対策 # 限定されたサインアップの場合、自己サインアップをはじめとした、利用者が自らユーザーを作成できる機能の無効化をおこなってください。また、自己サインアップ機能を無効化できない場合、それに準ずる対策をおこなってください。
 また、管理者による作成に際しては、各IDaaSの提供するAPIへのアクセス方法に準拠し管理者用APIを用いて作成を行なっていることを確認してください。
