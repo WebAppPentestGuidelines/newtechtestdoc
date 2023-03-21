@@ -20,12 +20,12 @@ $ ACCESS_TOKEN=&amp;#34;eJy...&amp;#34; # JWT形式のアクセストークン $
 一時的対策 # 一時的対策として、IDaaSへのIP制限等を行い、管理者利用するIDaaSへの一般ユーザーのアクセスをNWレベルで制限してください。
 また、本対策を恒久的な対策とせず、根本的な対策を用いて順次対策を行なってください。
 具体: Amazon Cognito User Pool # Amazon Cognito User Poolにおいては、ユーザーの属性で権限情報を管理することも可能ですが、Cognito User Poolの管理者APIに対してRBACを実装する場合、このユーザーグループを用いて管理することも検討してください。
-学習方法/参考文献 # Amazon Web Service - Amazon Cognito - ユーザープール属性 Amazon Web Service - Amazon Cognito - ユーザーグループ Flatt Security inc.</description></item><item><title>デフォルトエラーに起因するユーザーの開示 - IDaaS</title><link>https://webapppentestguidelines.github.io/newtechtestdoc/docs/cloudsec/idaas/default_error/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://webapppentestguidelines.github.io/newtechtestdoc/docs/cloudsec/idaas/default_error/</guid><description> デフォルトエラーに起因するユーザーの開示 # 概要 # 攻撃者にとってアプリケーションが返すエラーレスポンスは、攻撃を実施する上で大きなヒントを与えることがあります。代表的な例として、Internal Server Error時にサーバー上のプログラムの断片や、SQL文などが見えてしまうなどがあるでしょう。
+学習方法/参考文献 # Amazon Web Service - Amazon Cognito - ユーザープール属性 Amazon Web Service - Amazon Cognito - ユーザーグループ Flatt Security inc.</description></item><item><title>デフォルトエラーに起因するユーザーの開示 - IDaaS</title><link>https://webapppentestguidelines.github.io/newtechtestdoc/docs/cloudsec/idaas/default_error/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://webapppentestguidelines.github.io/newtechtestdoc/docs/cloudsec/idaas/default_error/</guid><description> デフォルトエラーに起因するユーザーの開示 # 概要 # 攻撃者にとってアプリケーションが返すエラーレスポンスは、攻撃を実施する上で大きなヒントを与えることがあります。代表的な例として、Internal Server Errorが発生した際にサーバー上のプログラムの断片や、SQL文などが見えてしまうなどがあるでしょう。
 認証においても同様で、認証情報がそのサービスで使われているのかを示す詳細なエラーを返すことにより、攻撃者に標的となるユーザーの存在を知らせてしまう可能性があります。
-そのような観点からIDaaSでも攻撃者を利するエラーメッセージについては削除や表記の統一を図ることが必要です。
+そのような観点からIDaaSでもエラーメッセージについては不要な内容の削除や表記の統一を図ることが必要です。
 原因 # CognitoをはじめとするIDaaSのエラーメッセージではデフォルトのメッセージが詳細な情報をレスポンスとして返すケースが存在します。
-Auth0の場合 Cognitoの場合 影響 # エラーメッセージにおいてサービスに登録しているユーザーのメールアドレスを確認することが可能です。 攻撃者はメールアドレスを確認することにより、過去に流出した認証情報との組み合わせをもとにアカウントへの不正アクセス行われる可能性があります。
-対策 # 対策として、デフォルトのエラーメッセージを変更し、認証認可に係るエラーに関して統一されたカスタムメッセージに変更することをお勧めします。
+Auth0の場合 Cognitoの場合 影響 # エラーメッセージにおいてサービスに登録しているユーザーのメールアドレスを確認することが可能です。 攻撃者にメールアドレスを取得され、過去に流出した認証情報との組み合わせをもとに不正ログインを試行される可能性があります。
+対策 # 対策として、デフォルトのエラーメッセージを変更し、認証認可に係るエラーに関して統一されたカスタムメッセージに変更することを推奨します。
 また、上記の対策が不可能なサービス(Firebase AuthのID/Pass認証)も存在するため、その点を考慮して対策等をおこなってください。
 学習方法/参考文献 # Amazon Web Service - Amazon Cognito - エラーレスポンスの管理 Auth0 OWASP チートシート - 認証とエラー メッセージ Amazon Web Service - Amazon Cognito - 認証チャレンジの作成の Lambda トリガー</description></item><item><title>意図しないサインアップ経路の存在 - IDaaS</title><link>https://webapppentestguidelines.github.io/newtechtestdoc/docs/cloudsec/idaas/presence_of_unintended_signup_paths/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://webapppentestguidelines.github.io/newtechtestdoc/docs/cloudsec/idaas/presence_of_unintended_signup_paths/</guid><description>意図しないサインアップ経路の存在 # 概要 # 管理者画面や会員向けのサービスなどの設計や要件レベルでサインアップ経路を制限しているアプリケーションにおいて、IDaaSの設定不備や誤った利用によって意図しない形でのサインアップが可能になっている場合が存在します。
 原因 # 管理者画面や会員向けのサービスなどの設計や要件レベルでのサインアップ経路の例として、管理者以外がユーザーの作成を想定していないケースが存在します。本稿ではAmazon Cognitoの誤った利用を例に原因について解説を行っていきます。
