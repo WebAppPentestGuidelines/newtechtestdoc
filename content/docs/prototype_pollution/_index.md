@@ -7,28 +7,28 @@ weight: 999
 ## 概要
 
 JavaScriptでは主に"継承"を実現するための[`__proto__`](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Object/proto)プロパティが存在します。
-Prototype Pollution は、この`__proto__`プロパティを通じて特定のオブジェクトの内容を不正に変更する攻撃手法またはそれに対する脆弱性です。
+Prototype Pollutionは、この`__proto__`プロパティを通じて特定のオブジェクトの内容を不正に変更する攻撃手法またはそれに対する脆弱性です。
 
 ## 影響
 
-Prototype Pollution の影響は、さまざまで発生箇所やアプリケーションのロジックに依存します。
-最悪の場合ではサーバサイドでの任意コード実行につながることがあり、そのほかの場合では XSS や SQL インジェクションなどの脆弱性にもつながる可能性があります。
+Prototype Pollutionの影響は、さまざまで発生箇所やアプリケーションのロジックに依存します。
+最悪の場合ではサーバサイドでの任意コード実行につながることがあり、そのほかの場合ではXSSやSQLインジェクションなどの脆弱性にもつながる可能性があります。
 
 ## 原因
 
-攻撃者が`__proto__`プロパティなどを経由して、特定のオブジェクトの prototype を操作可能であることが Prototype Pollution の原因です。
+攻撃者が`__proto__`プロパティなどを経由して、特定のオブジェクトのprototypeを操作可能であることがPrototype Pollutionの原因です。
 
 ## 攻撃手法
 
-実際にオブジェクトの`__proto__`プロパティが操作可能なケースとして、下記 2 つの例を紹介します。
+実際にオブジェクトの`__proto__`プロパティが操作可能なケースとして、下記2つの例を紹介します。
 
-1. オブジェクトに対して merge や clone の操作をするケース
+1. オブジェクトに対してmergeやcloneの操作をするケース
 2. `setValue(obj, key, value)`のようにオブジェクトのプロパティを設定するケース
 
-### 1. オブジェクトに対して merge や clone の操作を行うケース
+### 1. オブジェクトに対してmergeやcloneの操作を行うケース
 
 以下の`merge(tgt, src)`は、引数の`tgt`オブジェクトに`src`のプロパティを再帰的にマージします。
-この実装では与えられたオブジェクトの`key`の値をチェックしておらず、任意の`key`に対して任意の値を代入できます。(10 行目)
+この実装では与えられたオブジェクトの`key`の値をチェックしておらず、任意の`key`に対して任意の値を代入できます。(10行目)
 
 ```javascript
 function isObject(obj) {
@@ -54,13 +54,13 @@ const obj = {};
 console.log(obj.polluted); // => 1
 ```
 
-上記の PoC では、引数`src`に`{"__proto__": {"polluted": 1}}`というオブジェクトを渡しています。その値を10 行目で`tgt[__proto__] = {"polluted":1}`のような代入が実行されることで攻撃が成功しています。
+上記のPoCでは、引数`src`に`{"__proto__": {"polluted": 1}}`というオブジェクトを渡しています。その値を10行目で`tgt[__proto__] = {"polluted":1}`のような代入が実行されることで攻撃が成功しています。
 
 ### 2. `setValue(obj, key, value)`のようにオブジェクトのプロパティを設定するケース
 
 以下の`setValue(obj, key, value)`は、引数の`obj`オブジェクトに`{key:value}`のプロパティを追加します。また、`key`にチェーン演算子を用いて指定することで深くに位置するプロパティを追加します。
 
-この実装でも引数`key`の値をチェックしておらず、任意の`key`に対して任意の値を代入できます。(13 行目)
+この実装でも引数`key`の値をチェックしておらず、任意の`key`に対して任意の値を代入できます。(13行目)
 
 ```javascript
 function isObject(obj) {
@@ -85,7 +85,7 @@ const a = "";
 console.log(a.polluted); // => 1
 ```
 
-上記の PoC では、引数`key`に`__proto__.polluted`という値を渡しています。その値が再帰的に処理されることで結果的に 13 行目で`obj[__proto__][polluted] = 1`のような代入が実行されることで攻撃が成功しています。
+上記のPoCでは、引数`key`に`__proto__.polluted`という値を渡しています。その値が再帰的に処理されることで結果的に13行目で`obj[__proto__][polluted] = 1`のような代入が実行されることで攻撃が成功しています。
 
 ## 事例紹介
 
@@ -95,8 +95,8 @@ console.log(a.polluted); // => 1
 
 ## 対策
 
-Prototype Pollution の対策にはいくつか方法があるため、アプリケーションの規模や副作用を考慮して、適切な対策を選択するようにしてください。
-ここでは代表的な下記 5 つの方法を紹介します。
+Prototype Pollutionの対策にはいくつか方法があるため、アプリケーションの規模や副作用を考慮して、適切な対策を選択するようにしてください。
+ここでは代表的な下記5つの方法を紹介します。
 
 - ライブラリを利用する方法
 - `Object.freeze`を使用する方法
@@ -106,13 +106,13 @@ Prototype Pollution の対策にはいくつか方法があるため、アプリ
 
 ### ライブラリを利用する方法
 
-要件を満たす場合、Prototype Pollution の影響を受けずにオブジェクトに対して merge や clone を行うライブラリを利用することで防ぐことができます。
+要件を満たす場合、Prototype Pollutionの影響を受けずにオブジェクトに対してmergeやcloneを行うライブラリを利用することで防ぐことができます。
 
 ### `Object.freeze`を使用する方法
 
-[Object.freeze()](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze)を使用して、Object や Object.prototype を変更できないようにすることで、prototype が意図せず汚染されないようにできます。
+[Object.freeze()](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze)を使用して、ObjectやObject.prototypeを変更できないようにすることで、prototypeが意図せず汚染されないようにできます。
 
-下記のコードは、実際に`Object.freeze()`を使用して実際に対策できることを示す PoC です。
+下記のコードは、実際に`Object.freeze()`を使用して実際に対策できることを示すPoCです。
 
 ```javascript
 Object.freeze(Object.prototype);
@@ -122,19 +122,19 @@ Object.freeze(Object);
 console.log({}.test); // => undefined
 ```
 
-なお、注意点として、（上記の PoC を実際に動かしてみてもわかる通り、）`Object.freeze()`によって freeze されたオブジェクトの変更は、特にエラーや例外が起こることなく失敗します。
+なお、注意点として、（上記のPoCを実際に動かしてみてもわかる通り、）`Object.freeze()`によってfreezeされたオブジェクトの変更は、特にエラーや例外が起こることなく失敗します。
 そのため、本対策を適用し意図しない副作用が発生した場合でも、その発見が困難な場合もあります。
 したがって、この対策は（依存ライブラリを含めた）アプリケーションの現状の実装を考慮して、慎重に適用することを推奨します。
 
 ### `Object`の代わりに`Map`を使う方法
 
-ES6 以降では、`Object`の代わりに`Map`が利用できます。
-`Object`で単純に key/value のデータ構造を利用している場合は、それらを`Map`に置き換えることで、Prototype Pollution を防ぐことができます。
+ES6以降では、`Object`の代わりに`Map`が利用できます。
+`Object`で単純にkey/valueのデータ構造を利用している場合は、それらを`Map`に置き換えることで、Prototype Pollutionを防ぐことができます。
 
 ### オブジェクトの作成を`Object.create(null)`で行う方法
 
-`Object.create()`に`null`を渡し、prototype を引き継がないオブジェクトを作成することで、`__proto__`経由で prototype が汚染されることを防ぐことができます。
-下記のようなコードで、実際に`__proto__`経由で prototype にアクセスできないことを実際に確認できます。
+`Object.create()`に`null`を渡し、prototypeを引き継がないオブジェクトを作成することで、`__proto__`経由でprototypeが汚染されることを防ぐことができます。
+下記のようなコードで、実際に`__proto__`経由でprototypeにアクセスできないことを実際に確認できます。
 
 ```javascript
 var obj = Object.create(null);
@@ -149,7 +149,7 @@ console.log(obj.__proto__); // => undefined
 var obj = Object.assign(Object.create(null), { a: 1, b: 2 });
 ```
 
-なお、このように作成されたオブジェクトの prototype は`Object.prototype`の参照ではありません。そのため、`hasOwnProperty()`のような`Object.prototype`のメソッドはプロトタイプチェーン経由で呼び出せません。
+なお、このように作成されたオブジェクトのprototypeは`Object.prototype`の参照ではありません。そのため、`hasOwnProperty()`のような`Object.prototype`のメソッドはプロトタイプチェーン経由で呼び出せません。
 もし、そのようなメソッドを呼び出したい場合は`Object.prototype.hasOwnProperty`のように明記する必要があります。
 
 ```javascript
@@ -163,7 +163,7 @@ Object.prototype.hasOwnProperty.call(obj, "a"); // => true
 ### Schema validation of JSON input
 
 [JSON Schema](https://json-schema.org/)では`additionalProperties:false`を指定することで、想定していないプロパティを禁止できます。
-適切な JSON Scheme を用いてバリデーションを行うことで Prototype Pollution の対策ができます。
+適切なJSON Schemeを用いてバリデーションを行うことでPrototype Pollutionの対策ができます。
 
 以下は、前述の関数`setValue()`に対し、[ajv](https://ajv.js.org/)を用いて対策する例です。
 
@@ -197,7 +197,7 @@ setValue({}, "__proto__.polluted", 1); // => Exception raised
 ```
 
 ただし、この場合、`properties`に含んでいないプロパティは一切追加ができなくなることに注意が必要です。
-任意のプロパティを受け入れつつ対策をする場合、単に追加される key に悪意のある値が指定されないように制限する対策も有効です。
+任意のプロパティを受け入れつつ対策をする場合、単に追加されるkeyに悪意のある値が指定されないように制限する対策も有効です。
 
 ```javascript
 function setValue(obj, key, value) {
@@ -225,11 +225,11 @@ console.log(a.polluted); // => undefined
 
 ### 基本的な診断方法
 
-これまでに説明した Prototype Pollution の基本原理や攻撃手法などを踏まえ、任意のオブジェクトの prototype が不正に変更できないかを検証してください。
+これまでに説明したPrototype Pollutionの基本原理や攻撃手法などを踏まえ、任意のオブジェクトのprototypeが不正に変更できないかを検証してください。
 
-### DOM Invader を用いた効率的な診断
+### DOM Invaderを用いた効率的な診断
 
-DOM Invader は BurpSuite の機能で DOM XSS のテストや`postMessage()`の操作を用いたテストの支援を提供します。この機能を用いることでクライアントサイドの Prototype Pollution の自動検出や手動での検証の補助として利用可能です。
+DOM InvaderはBurpSuiteの機能でDOM XSSのテストや`postMessage()`の操作を用いたテストの支援を提供します。この機能を用いることでクライアントサイドのPrototype Pollutionの自動検出や手動での検証の補助として利用可能です。
 
 詳しい検証方法は[Testing for client-side prototype pollution](https://portswigger.net/burp/documentation/desktop/tools/dom-invader/prototype-pollution)で丁寧に解説されているので、こちらを参照してください。
 
