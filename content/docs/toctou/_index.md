@@ -81,12 +81,12 @@ Turbo Intruder は、大量の HTTP リクエストを送信したり、Python �
 
 また、Turbo Intruder は、標準の Burp Intruder とは異なり Community Edition でも使用できます。
 
+<!-- textlint-disable -->
+
 {{< hint info >}}
 **注意**  
 Turbo Intruder は、Port Swigger 社のセキュリティリサーチャーである James Kettle 氏によって開発されています。しかし、十分なテストが行われていないため Burp の標準機能よりも信頼性がなく、システムパフォーマンスに影響を及ぼす可能性があるため、自己責任のもと拡張機能を使用してください。
 {{< /hint >}}
-
-<!-- textlint-disable -->
 
 送信したいリクエストを選択し、コンテキストメニューから`Extensions`->`Turbo Intruder`->`Send to turbo intruder`をクリックして、Turbo Intruder へリクエストを送ります。
 
