@@ -3,6 +3,8 @@ title: 意図しないサインアップ経路の存在 - IDaaS
 weight: 1
 
 ---
+<!-- textlint-disable ja-technical-writing/sentence-length -->
+
 # 意図しないサインアップ経路の存在
 ##  概要
 

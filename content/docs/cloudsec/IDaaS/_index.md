@@ -3,6 +3,7 @@ title: IDaaSの活用に起因する脆弱性とその悪用
 weight: 1
 
 ---
+<!-- textlint-disable ja-technical-writing/sentence-length -->
 
 # IDaaSの活用に起因する脆弱性とその悪用
 ## 概要

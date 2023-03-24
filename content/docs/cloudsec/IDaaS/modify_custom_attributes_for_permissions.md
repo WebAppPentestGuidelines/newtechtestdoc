@@ -3,6 +3,7 @@ title: アプリケーションの権限に関するカスタム属性の変更 
 weight: 1
 
 ---
+<!-- textlint-disable ja-technical-writing/sentence-length -->
 
 # アプリケーションの権限に関するカスタム属性の変更
 ## 概要

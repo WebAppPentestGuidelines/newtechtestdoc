@@ -3,6 +3,7 @@ title: EDoS(Economic Denial of Sustainability) - IDaaS
 weight: 1
 
 ---
+<!-- textlint-disable ja-technical-writing/sentence-length -->
 
 # EDoS(Economic Denial of Sustainability)
 ## 概要

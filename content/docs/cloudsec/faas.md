@@ -31,7 +31,8 @@ S3 Bucketへ画像やファイルをアップロードしたイベントをト�
 ![画像処理 / シンプルなデータ加工の図](../image/Pattern-S3-processing.0a24e9465dec531156f56ce1c961d00a8e529f3a.png)
 
 **SNS + SQS(Queue) + Lambdaを用いた業務処理**<br>
-各種重要処理や競合/重複状態を回避するために利用されるデザインパターンで、SNSのPubSub機能を用いて、SQSに投入し、LambdaがそのイベントをトリガとしてQueueに入ったデータを取得し実行されます。
+各種重要処理や競合/重複状態を回避するために利用されるデザインパターンです。
+SNSのPubSub機能を用いて、SQSに投入し、LambdaがそのイベントをトリガとしてQueueに入ったデータを取得し実行されます。
 ![イベント駆動の業務処理連携の図](../image/Pattern-Integration.77b207fd045bc2283fe06cb76dc934764ca7114a.png)
 
 # 脆弱性 / 脅威 / 悪用
@@ -91,6 +92,7 @@ exports.handler = async (event) => {
 
 ```
 <!-- textlint-disable prh -->
+<!-- textlint-disable ja-technical-writing/sentence-length -->
 上記のアプリケーションでは、API Gatewayからイベントとして送られてきた、queryStringParametersを直接readFileSyncに利用しており、Path Traversal攻撃が発生する状況にあります。
 そのため、`"../../../../proc/self/environ"`と値を入力すると、実装上意図しないローカルファイルが取得できてしまう状況にあります。
 <!-- textlint-enable prh -->
