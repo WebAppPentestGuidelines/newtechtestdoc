@@ -3,9 +3,11 @@ title: Introduction
 type: docs
 ---
 
+<!-- textlint-disable ja-technical-writing/max-kanji-continuous-len -->
+
 # 細かすぎるけど伝わってほしい脆弱性診断手法ドキュメント
 ## 始めに
-<!-- textlint-disable ja-technical-writing/max-kanji-continuous-len -->
+
 本書は、ISOG-J WG1の新技術に対する診断手法分科会によってまとめられたさまざまな技術に関する脆弱性診断手法ドキュメントです。
 
 クロスサイトスクリプティングやSQL Injectionなどの著名な脆弱性は診断手法や対策なども浸透し、日本語で読める良質なドキュメントが複数あります。
