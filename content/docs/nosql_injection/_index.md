@@ -130,7 +130,7 @@ ref : https://github.com/steedos/steedos-platform/issues/1245
 
 ## MongoDB
 - 最新バージョンを使用
-- 入力検証・サニタイズライブラリの仕様  
+- 入力検証・サニタイズライブラリの利用  
     -  `mongo-sanitize`、`mongoose`
 - MongoDBにおいては、 `where`、`mapReduce`、 `group`演算子を使用しないようにしましょう。これらの関数は攻撃者が任意のJavaScriptを注入できてしまう可能性があります。また、可能であれば`mongod.conf`に以下のように設定しましょう。
 ```
