@@ -67,7 +67,7 @@ SafariではSameSite属性はデフォルトの設定では「-」と表示さ�
    https://www.chromium.org/updates/same-site/)
 3. [Cookie とローカル ストレージ](
    https://learn.microsoft.com/ja-jp/microsoftteams/platform/resources/samesite-cookie-update)
-4. ["2022年1月においてCSRF未対策のサイトはどの条件で被害を受けるか"](
+4. [2022年1月においてCSRF未対策のサイトはどの条件で被害を受けるか](
    https://blog.tokumaru.org/2022/01/impact-conditions-for-no-CSRF-protection-sites.html)
 5. [CookieのSameSite属性と4つの勘違い(2022-10版)](
    https://securesky-plus.com/engineerblog/1809/)
