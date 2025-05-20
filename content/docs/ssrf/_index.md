@@ -37,7 +37,7 @@ SSRFとなりうる処理の例としては次のものが挙げられます。
 
 プレビュー機能のイメージ：
 
-![ssrf](https://hackmd.io/_uploads/ryheEvJgle.png)
+![ssrf_image2](./ssrf_image2.png)
 
 
 このような機能において、例えば、攻撃者は `http://10.0.0.1` といったURLを含めて投稿を送信します。
